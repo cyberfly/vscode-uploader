@@ -2,7 +2,7 @@
   "name": "vscode-uploader",
   "displayName": "File Uploader",
   "description": "Upload files to workspace folders via Explorer context menu",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "publisher": "integrasolid",
   "engines": {
     "vscode": "^1.85.0"

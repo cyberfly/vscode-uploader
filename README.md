@@ -6,18 +6,33 @@ A simple VS Code extension that adds "Upload Files Here..." to the Explorer cont
 
 - **Context Menu Integration**: Right-click any folder in the Explorer to upload files
 - **Multi-file Selection**: Select and upload multiple files at once
+- **Smart Environment Detection**: Automatically uses the right file picker for your environment
+  - **Local Workspaces**: Native OS file picker dialog
+  - **Remote Workspaces**: Webview-based picker to browse your local machine's files
 - **Progress Tracking**: Real-time progress notifications during upload
 - **Conflict Resolution**: Automatically prompts when files already exist (Overwrite/Skip)
-- **Cancellable Operations**: Cancel uploads in progress
-- **Remote Workspace Support**: Works with remote workspaces using VS Code's FileSystem API
+- **Cancellable Operations**: Cancel uploads in progress (local workspaces)
+- **Remote Workspace Support**: Full support for GitHub Codespaces, SSH, WSL, and Dev Containers
 
 ## Usage
 
+### Local Workspaces
 1. Right-click any folder in the VS Code Explorer
 2. Select "Upload Files Here..." from the context menu
-3. Choose one or more files from the file picker dialog
+3. Choose one or more files from the native OS file picker dialog
 4. Monitor progress in the notification
 5. If a file already exists, choose to Overwrite or Skip
+
+### Remote Workspaces (Codespaces, SSH, WSL, Dev Containers)
+1. Right-click any folder in the VS Code Explorer
+2. Select "Upload Files Here..." from the context menu
+3. A webview panel opens with "Browse Files..." button
+4. Click "Browse Files..." to open your local machine's file picker
+5. Select one or more files from your local computer
+6. Review the file list with sizes in the webview
+7. Click "Upload Selected Files"
+8. If a file already exists, choose to Overwrite or Skip
+9. The webview closes automatically upon successful upload
 
 ## Installation
 
@@ -53,11 +68,27 @@ npx @vscode/vsce package
 
 ## Development
 
-The extension uses VS Code's FileSystem API (`vscode.workspace.fs`) for file operations, ensuring compatibility with:
-- Local workspaces
+### Architecture
+
+The extension intelligently adapts to different VS Code environments:
+
+**Local Workspaces:**
+- Uses `vscode.window.showOpenDialog()` for native OS file picker
+- Files copied using `vscode.workspace.fs.copy()`
+
+**Remote Workspaces:**
+- Detects remote environment via `vscode.env.remoteName`
+- Opens a webview panel with HTML5 `<input type="file">` element
+- Files read as `ArrayBuffer` in the webview's JavaScript context
+- Data transferred to extension via `postMessage()`
+- Files written using `vscode.workspace.fs.writeFile()`
+
+This approach ensures that file selection always happens on the local machine, even when VS Code is connected to:
+- GitHub Codespaces
 - Remote SSH workspaces
-- Container workspaces
-- Virtual file systems
+- WSL (Windows Subsystem for Linux)
+- Dev Containers
+- Any remote environment where `vscode.env.remoteName` is defined
 
 ## License
 
