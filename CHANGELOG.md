@@ -1,6 +1,14 @@
 # Change Log
 
-All notable changes to the "vscode-uploader" extension will be documented in this file.
+All notable changes to the "EZ File Upload" extension will be documented in this file.
+
+## [0.2.0] - 2026-01-22
+
+### Changed
+- Renamed extension from "File Uploader" to "EZ File Upload"
+- Updated package name from "vscode-uploader" to "ez-file-upload"
+- Updated command identifier from "vscode-uploader.uploadFiles" to "ez-file-upload.uploadFiles"
+- Changed publisher from "integrasolid" to "fathurdev"
 
 ## [0.1.0] - 2026-01-22
 

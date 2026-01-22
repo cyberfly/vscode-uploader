@@ -1,9 +1,9 @@
 {
-  "name": "vscode-uploader",
-  "displayName": "File Uploader",
-  "description": "Upload files to workspace folders via Explorer context menu",
-  "version": "0.1.0",
-  "publisher": "integrasolid",
+  "name": "ez-file-upload",
+  "displayName": "EZ File Upload",
+  "description": "Easily upload files to workspace folders via Explorer context menu",
+  "version": "0.2.0",
+  "publisher": "fathurdev",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -15,14 +15,14 @@
   "contributes": {
     "commands": [
       {
-        "command": "vscode-uploader.uploadFiles",
+        "command": "ez-file-upload.uploadFiles",
         "title": "Upload Files Here..."
       }
     ],
     "menus": {
       "explorer/context": [
         {
-          "command": "vscode-uploader.uploadFiles",
+          "command": "ez-file-upload.uploadFiles",
           "when": "explorerResourceIsFolder",
           "group": "7_modification"
         }

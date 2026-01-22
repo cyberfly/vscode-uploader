@@ -1,4 +1,4 @@
-# File Uploader for VS Code
+# EZ File Upload for VS Code
 
 A simple VS Code extension that adds "Upload Files Here..." to the Explorer context menu, allowing you to easily copy files from anywhere on your system into your workspace folders.
 
@@ -45,7 +45,7 @@ A simple VS Code extension that adds "Upload Files Here..." to the Explorer cont
 ### From Source
 ```bash
 git clone <repository-url>
-cd vscode-uploader
+cd ez-file-upload
 npm install
 npm run compile
 ```

@@ -433,7 +433,7 @@ async function uploadFilesWithNativePicker(destinationUri: vscode.Uri): Promise<
 
 export function activate(context: vscode.ExtensionContext) {
     const disposable = vscode.commands.registerCommand(
-        'vscode-uploader.uploadFiles',
+        'ez-file-upload.uploadFiles',
         async (destinationUri: vscode.Uri) => {
             if (!destinationUri) {
                 vscode.window.showErrorMessage('No destination folder selected.');
