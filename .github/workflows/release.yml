@@ -3,6 +3,9 @@ name: Release VSIX
 on:
   release:
     types: [published]
+  push:
+    tags:
+      - "v*"
 
 permissions:
   contents: write
