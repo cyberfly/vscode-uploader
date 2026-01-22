@@ -1,0 +1,44 @@
+{
+  "name": "vscode-uploader",
+  "displayName": "File Uploader",
+  "description": "Upload files to workspace folders via Explorer context menu",
+  "version": "0.0.1",
+  "publisher": "integrasolid",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vscode-uploader.uploadFiles",
+        "title": "Upload Files Here..."
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "vscode-uploader.uploadFiles",
+          "when": "explorerResourceIsFolder",
+          "group": "7_modification"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.7.1",
+    "typescript": "^5.3.0"
+  }
+}
