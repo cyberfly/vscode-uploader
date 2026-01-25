@@ -4,9 +4,25 @@
   <img src="icon.png" alt="EZ File Upload Icon" width="128" height="128">
 </p>
 
+<p align="center">
+  <a href="https://marketplace.visualstudio.com/items?itemName=fathurdev.ez-file-upload">
+    <img src="https://img.shields.io/visual-studio-marketplace/v/fathurdev.ez-file-upload?style=flat-square&label=VS%20Marketplace&logo=visual-studio-code" alt="Visual Studio Marketplace Version">
+  </a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=fathurdev.ez-file-upload">
+    <img src="https://img.shields.io/visual-studio-marketplace/d/fathurdev.ez-file-upload?style=flat-square&label=Downloads" alt="Downloads">
+  </a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=fathurdev.ez-file-upload">
+    <img src="https://img.shields.io/visual-studio-marketplace/r/fathurdev.ez-file-upload?style=flat-square&label=Rating" alt="Rating">
+  </a>
+</p>
+
 A simple VS Code extension that adds "Upload Files Here..." to the Explorer context menu, allowing you to easily copy files from anywhere on your system into your workspace folders.
 
 **Compatible with VS Code, Cursor, and Antigravity editors.**
+
+## Installation
+
+Install directly from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=fathurdev.ez-file-upload)
 
 ## Features
 
@@ -68,15 +84,15 @@ A simple VS Code extension that adds "Upload Files Here..." to the Explorer cont
 8. If a file already exists, choose to Overwrite or Skip
 9. The webview closes automatically upon successful upload
 
-## Installation
+### Alternative Installation Methods
 
-### From VSIX
+#### From VSIX
 1. Download the `.vsix` file
 2. In VS Code, open Extensions (Cmd+Shift+X / Ctrl+Shift+X)
 3. Click the "..." menu → "Install from VSIX..."
 4. Select the downloaded `.vsix` file
 
-### From Source
+#### From Source
 ```bash
 git clone <repository-url>
 cd ez-file-upload
