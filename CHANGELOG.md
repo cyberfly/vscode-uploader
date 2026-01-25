@@ -2,6 +2,23 @@
 
 All notable changes to the "EZ File Upload" extension will be documented in this file.
 
+## [1.0.1] - 2026-01-25
+
+### Changed
+- **Context Menu Upload Behavior**: Context menu "Upload Files Here..." now uploads directly to the selected folder without confirmation (faster workflow)
+- **Command Palette Confirmation**: Command Palette uploads still show location confirmation dialog
+
+### Added
+- **New Setting**: `ez-file-upload.confirmContextMenuUpload` (default: `false`)
+  - Allows users to enable upload location confirmation for context menu if desired
+  - Command Palette uploads always show confirmation regardless of this setting
+- Setting provides flexibility for users who prefer confirmation on all uploads
+
+### Technical Details
+- Detects invocation source (context menu vs command palette) via `destinationUri` parameter
+- Reads user preference from workspace configuration
+- Maintains backward compatibility while providing better UX
+
 ## [0.2.2] - 2026-01-25
 
 ### Added

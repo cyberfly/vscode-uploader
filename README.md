@@ -11,8 +11,11 @@ A simple VS Code extension that adds "Upload Files Here..." to the Explorer cont
 ## Features
 
 - **Command Palette Access**: Invoke from Command Palette (Cmd+Shift+P / Ctrl+Shift+P) with smart destination detection
-- **Context Menu Integration**: Right-click any folder in the Explorer to upload files
-- **Upload Location Confirmation**: Confirm or modify the upload destination before selecting files
+- **Context Menu Integration**: Right-click any folder in the Explorer to upload files directly
+- **Smart Upload Confirmation**:
+  - **Context Menu**: Direct upload to selected folder (no confirmation by default)
+  - **Command Palette**: Always shows location confirmation
+  - **Configurable**: Enable confirmation for context menu via settings
 - **Multi-file Selection**: Select and upload multiple files at once
 - **Smart Destination Detection**: When using Command Palette, automatically uploads to:
   - Active file's parent directory (if a file is open)
@@ -50,22 +53,20 @@ A simple VS Code extension that adds "Upload Files Here..." to the Explorer cont
 ### From Explorer Context Menu (Local Workspaces)
 1. Right-click any folder in the VS Code Explorer
 2. Select "Upload Files Here..." from the context menu
-3. Confirm the upload location (press Enter to confirm, or edit the path, or Esc to cancel)
-4. Choose one or more files from the native OS file picker dialog
-5. Monitor progress in the notification
-6. If a file already exists, choose to Overwrite or Skip
+3. Choose one or more files from the native OS file picker dialog (no confirmation needed)
+4. Monitor progress in the notification
+5. If a file already exists, choose to Overwrite or Skip
 
 ### From Explorer Context Menu (Remote Workspaces)
 1. Right-click any folder in the VS Code Explorer
 2. Select "Upload Files Here..." from the context menu
-3. Confirm the upload location (press Enter to confirm, or edit the path, or Esc to cancel)
-4. A webview panel opens with "Browse Files..." button
-5. Click "Browse Files..." to open your local machine's file picker
-6. Select one or more files from your local computer
-7. Review the file list with sizes in the webview
-8. Click "Upload Selected Files"
-9. If a file already exists, choose to Overwrite or Skip
-10. The webview closes automatically upon successful upload
+3. A webview panel opens with "Browse Files..." button (no confirmation needed)
+4. Click "Browse Files..." to open your local machine's file picker
+5. Select one or more files from your local computer
+6. Review the file list with sizes in the webview
+7. Click "Upload Selected Files"
+8. If a file already exists, choose to Overwrite or Skip
+9. The webview closes automatically upon successful upload
 
 ## Installation
 
@@ -94,6 +95,20 @@ npm run compile
 # Package as VSIX
 npx @vscode/vsce package
 ```
+
+## Configuration
+
+### Settings
+
+- **`ez-file-upload.confirmContextMenuUpload`** (default: `false`)
+  - When disabled (default): Context menu "Upload Files Here..." uploads directly to the selected folder
+  - When enabled: Shows confirmation dialog before file selection, even for context menu
+  - Command Palette uploads always show confirmation regardless of this setting
+
+To enable confirmation for context menu:
+1. Open Settings (Cmd+, / Ctrl+,)
+2. Search for "EZ File Upload"
+3. Enable "Confirm Context Menu Upload"
 
 ## Requirements
 

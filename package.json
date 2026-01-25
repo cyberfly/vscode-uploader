@@ -2,7 +2,7 @@
   "name": "ez-file-upload",
   "displayName": "EZ File Upload",
   "description": "Easily upload files to workspace folders via Explorer context menu",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "fathurdev",
   "repository": {
     "type": "git",
@@ -39,6 +39,16 @@
           "when": "workspaceFolderCount > 0"
         }
       ]
+    },
+    "configuration": {
+      "title": "EZ File Upload",
+      "properties": {
+        "ez-file-upload.confirmContextMenuUpload": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show upload location confirmation when using context menu 'Upload Files Here'. When disabled, files will upload directly to the selected folder without confirmation."
+        }
+      }
     }
   },
   "scripts": {

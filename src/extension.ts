@@ -465,34 +465,53 @@ export function activate(context: vscode.ExtensionContext) {
                 return;
             }
 
-            // Ask user to confirm or change the upload location
-            const selectedPath = await vscode.window.showInputBox({
-                value: resolvedUri.fsPath,
-                prompt: "Confirm upload location (press Enter to confirm, Esc to cancel)",
-                title: 'Upload Location',
-                valueSelection: [resolvedUri.fsPath.length, resolvedUri.fsPath.length],
-                validateInput: async (value) => {
-                    if (!value || value.trim() === '') {
-                        return 'Path cannot be empty';
-                    }
-                    try {
-                        const uri = vscode.Uri.file(value);
-                        const stat = await vscode.workspace.fs.stat(uri);
-                        if (stat.type !== vscode.FileType.Directory) {
-                            return 'Path must be a directory';
+            // Determine if called from context menu (destinationUri is provided)
+            const isContextMenu = destinationUri !== undefined;
+
+            // Get configuration setting for context menu confirmation
+            const config = vscode.workspace.getConfiguration('ez-file-upload');
+            const confirmContextMenuUpload = config.get<boolean>('confirmContextMenuUpload', false);
+
+            // Show confirmation only if:
+            // - Called from command palette (not context menu), OR
+            // - Called from context menu AND user enabled confirmation setting
+            const shouldConfirm = !isContextMenu || confirmContextMenuUpload;
+
+            let finalUri: vscode.Uri;
+
+            if (shouldConfirm) {
+                // Ask user to confirm or change the upload location
+                const selectedPath = await vscode.window.showInputBox({
+                    value: resolvedUri.fsPath,
+                    prompt: "Confirm upload location (press Enter to confirm, Esc to cancel)",
+                    title: 'Upload Location',
+                    valueSelection: [resolvedUri.fsPath.length, resolvedUri.fsPath.length],
+                    validateInput: async (value) => {
+                        if (!value || value.trim() === '') {
+                            return 'Path cannot be empty';
                         }
-                    } catch {
-                        return 'Directory does not exist';
+                        try {
+                            const uri = vscode.Uri.file(value);
+                            const stat = await vscode.workspace.fs.stat(uri);
+                            if (stat.type !== vscode.FileType.Directory) {
+                                return 'Path must be a directory';
+                            }
+                        } catch {
+                            return 'Directory does not exist';
+                        }
+                        return null;
                     }
-                    return null;
+                });
+
+                if (!selectedPath) {
+                    return; // User cancelled
                 }
-            });
 
-            if (!selectedPath) {
-                return; // User cancelled
+                finalUri = vscode.Uri.file(selectedPath);
+            } else {
+                // Use resolved URI directly (context menu with confirmation disabled)
+                finalUri = resolvedUri;
             }
-
-            const finalUri = vscode.Uri.file(selectedPath);
 
             // Route to appropriate picker based on environment
             if (isRemoteEnvironment()) {
