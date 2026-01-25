@@ -4,6 +4,11 @@
   "description": "Easily upload files to workspace folders via Explorer context menu",
   "version": "0.2.2",
   "publisher": "fathurdev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cyberfly/vscode-uploader"
+  },
+  "license": "MIT",
   "engines": {
     "vscode": "^1.85.0"
   },
