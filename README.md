@@ -1,6 +1,12 @@
 # EZ File Upload for VS Code
 
+<p align="center">
+  <img src="icon.png" alt="EZ File Upload Icon" width="128" height="128">
+</p>
+
 A simple VS Code extension that adds "Upload Files Here..." to the Explorer context menu, allowing you to easily copy files from anywhere on your system into your workspace folders.
+
+**Compatible with VS Code, Cursor, and Antigravity editors.**
 
 ## Features
 
@@ -17,7 +23,18 @@ A simple VS Code extension that adds "Upload Files Here..." to the Explorer cont
 - **Progress Tracking**: Real-time progress notifications during upload
 - **Conflict Resolution**: Automatically prompts when files already exist (Overwrite/Skip)
 - **Cancellable Operations**: Cancel uploads in progress (local workspaces)
-- **Remote Workspace Support**: Full support for GitHub Codespaces, SSH, WSL, and Dev Containers
+- **Remote Workspace Support**: Full support for GitHub Codespaces, SSH, WSL, Dev Containers, Cursor, and Antigravity
+
+## Screenshots
+
+### Command Palette Access
+![Command Palette](screenshots/command_upload.png)
+
+### Upload Location Confirmation
+![Confirm Upload Location](screenshots/confirm_upload_location.png)
+
+### Context Menu Integration
+![Right-Click Folder](screenshots/right_click_folder.png)
 
 ## Usage
 
@@ -99,11 +116,13 @@ The extension intelligently adapts to different VS Code environments:
 - Data transferred to extension via `postMessage()`
 - Files written using `vscode.workspace.fs.writeFile()`
 
-This approach ensures that file selection always happens on the local machine, even when VS Code is connected to:
+This approach ensures that file selection always happens on the local machine, even when the editor is connected to:
 - GitHub Codespaces
 - Remote SSH workspaces
 - WSL (Windows Subsystem for Linux)
 - Dev Containers
+- Cursor editor
+- Antigravity editor
 - Any remote environment where `vscode.env.remoteName` is defined
 
 ## License
