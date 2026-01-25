@@ -2,7 +2,7 @@
   "name": "ez-file-upload",
   "displayName": "EZ File Upload",
   "description": "Easily upload files to workspace folders via Explorer context menu",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "publisher": "fathurdev",
   "engines": {
     "vscode": "^1.85.0"
@@ -25,6 +25,12 @@
           "command": "ez-file-upload.uploadFiles",
           "when": "explorerResourceIsFolder",
           "group": "7_modification"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "ez-file-upload.uploadFiles",
+          "when": "workspaceFolderCount > 0"
         }
       ]
     }

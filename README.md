@@ -4,8 +4,13 @@ A simple VS Code extension that adds "Upload Files Here..." to the Explorer cont
 
 ## Features
 
+- **Command Palette Access**: Invoke from Command Palette (Cmd+Shift+P / Ctrl+Shift+P) with smart destination detection
 - **Context Menu Integration**: Right-click any folder in the Explorer to upload files
+- **Upload Location Confirmation**: Confirm or modify the upload destination before selecting files
 - **Multi-file Selection**: Select and upload multiple files at once
+- **Smart Destination Detection**: When using Command Palette, automatically uploads to:
+  - Active file's parent directory (if a file is open)
+  - Workspace root folder (if no file is open)
 - **Smart Environment Detection**: Automatically uses the right file picker for your environment
   - **Local Workspaces**: Native OS file picker dialog
   - **Remote Workspaces**: Webview-based picker to browse your local machine's files
@@ -16,23 +21,34 @@ A simple VS Code extension that adds "Upload Files Here..." to the Explorer cont
 
 ## Usage
 
-### Local Workspaces
-1. Right-click any folder in the VS Code Explorer
-2. Select "Upload Files Here..." from the context menu
-3. Choose one or more files from the native OS file picker dialog
-4. Monitor progress in the notification
-5. If a file already exists, choose to Overwrite or Skip
+### From Command Palette
+1. Open Command Palette (Cmd+Shift+P / Ctrl+Shift+P)
+2. Type "Upload Files Here..." and select the command
+3. Files will be uploaded to:
+   - The parent directory of your currently open file (if you have a file open)
+   - The workspace root folder (if no file is open)
+4. Confirm the upload location (press Enter to confirm, or edit the path, or Esc to cancel)
+5. Choose files and follow the same process as context menu usage below
 
-### Remote Workspaces (Codespaces, SSH, WSL, Dev Containers)
+### From Explorer Context Menu (Local Workspaces)
 1. Right-click any folder in the VS Code Explorer
 2. Select "Upload Files Here..." from the context menu
-3. A webview panel opens with "Browse Files..." button
-4. Click "Browse Files..." to open your local machine's file picker
-5. Select one or more files from your local computer
-6. Review the file list with sizes in the webview
-7. Click "Upload Selected Files"
-8. If a file already exists, choose to Overwrite or Skip
-9. The webview closes automatically upon successful upload
+3. Confirm the upload location (press Enter to confirm, or edit the path, or Esc to cancel)
+4. Choose one or more files from the native OS file picker dialog
+5. Monitor progress in the notification
+6. If a file already exists, choose to Overwrite or Skip
+
+### From Explorer Context Menu (Remote Workspaces)
+1. Right-click any folder in the VS Code Explorer
+2. Select "Upload Files Here..." from the context menu
+3. Confirm the upload location (press Enter to confirm, or edit the path, or Esc to cancel)
+4. A webview panel opens with "Browse Files..." button
+5. Click "Browse Files..." to open your local machine's file picker
+6. Select one or more files from your local computer
+7. Review the file list with sizes in the webview
+8. Click "Upload Selected Files"
+9. If a file already exists, choose to Overwrite or Skip
+10. The webview closes automatically upon successful upload
 
 ## Installation
 

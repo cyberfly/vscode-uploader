@@ -431,20 +431,74 @@ async function uploadFilesWithNativePicker(destinationUri: vscode.Uri): Promise<
     );
 }
 
+/**
+ * Resolve destination URI for file upload
+ * Priority: explicit URI > active file's parent directory > workspace root
+ */
+function resolveDestinationUri(destinationUri?: vscode.Uri): vscode.Uri | undefined {
+    if (destinationUri) {
+        return destinationUri;
+    }
+
+    // Use parent directory of active file
+    const activeEditor = vscode.window.activeTextEditor;
+    if (activeEditor && activeEditor.document.uri.scheme === 'file') {
+        return vscode.Uri.joinPath(activeEditor.document.uri, '..');
+    }
+
+    // Fall back to workspace root
+    const workspaceFolders = vscode.workspace.workspaceFolders;
+    if (workspaceFolders && workspaceFolders.length > 0) {
+        return workspaceFolders[0].uri;
+    }
+
+    return undefined;
+}
+
 export function activate(context: vscode.ExtensionContext) {
     const disposable = vscode.commands.registerCommand(
         'ez-file-upload.uploadFiles',
-        async (destinationUri: vscode.Uri) => {
-            if (!destinationUri) {
-                vscode.window.showErrorMessage('No destination folder selected.');
+        async (destinationUri?: vscode.Uri) => {
+            const resolvedUri = resolveDestinationUri(destinationUri);
+            if (!resolvedUri) {
+                vscode.window.showErrorMessage('No destination folder available. Please open a workspace or file first.');
                 return;
             }
 
+            // Ask user to confirm or change the upload location
+            const selectedPath = await vscode.window.showInputBox({
+                value: resolvedUri.fsPath,
+                prompt: "Confirm upload location (press Enter to confirm, Esc to cancel)",
+                title: 'Upload Location',
+                valueSelection: [resolvedUri.fsPath.length, resolvedUri.fsPath.length],
+                validateInput: async (value) => {
+                    if (!value || value.trim() === '') {
+                        return 'Path cannot be empty';
+                    }
+                    try {
+                        const uri = vscode.Uri.file(value);
+                        const stat = await vscode.workspace.fs.stat(uri);
+                        if (stat.type !== vscode.FileType.Directory) {
+                            return 'Path must be a directory';
+                        }
+                    } catch {
+                        return 'Directory does not exist';
+                    }
+                    return null;
+                }
+            });
+
+            if (!selectedPath) {
+                return; // User cancelled
+            }
+
+            const finalUri = vscode.Uri.file(selectedPath);
+
             // Route to appropriate picker based on environment
             if (isRemoteEnvironment()) {
-                await showLocalFilePicker(context, destinationUri);
+                await showLocalFilePicker(context, finalUri);
             } else {
-                await uploadFilesWithNativePicker(destinationUri);
+                await uploadFilesWithNativePicker(finalUri);
             }
         }
     );
